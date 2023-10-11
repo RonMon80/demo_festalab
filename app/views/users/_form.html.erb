@@ -1,0 +1,15 @@
+<%= simple_form_for(@user) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name, placeholder: "John Doe" %>
+    <%= f.input :email, placeholder: "johndoe@gmail.com" %>
+    <%= f.input :phone, placeholder: "(11) 1234-1234" %>
+    <%= f.input :cpf, placeholder: "123.123.123-12" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>
