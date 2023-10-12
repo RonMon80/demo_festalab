@@ -1,4 +1,14 @@
 <div class="container">
+
+  <div class="row mt-3">
+  <div class="col">
+    <%= form_tag(users_path, method: :get, class: 'd-flex') do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search by Name, Email, Phone, or CPF", class: "form-control flex-grow-1 mr-2" %>
+      <%= submit_tag "Search", class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+</div>
+
   <div class="row">
     <div class="col">
       <p style="color: green"><%= notice %></p>
@@ -8,28 +18,32 @@
 
   <div class="row">
     <div class="col">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @users.each do |user| %>
+      <% if @users.empty? %>
+        <p>No users found!</p>
+      <% else %>
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <td><%= user.name %></td>
-              <td><%= user.email %></td>
-              <td>
-                <%= link_to "Show", user, class: "btn btn-success btn-sm" %>
-                <%= link_to "Edit", edit_user_path(user), class: "btn btn-warning btn-sm" %>
-                <%= link_to "Delete", user, method: :delete,   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} , class: "btn btn-danger btn-sm" %>
-              </td>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td>
+                  <%= link_to "Show", user, class: "btn btn-success btn-sm" %>
+                  <%= link_to "Edit", edit_user_path(user), class: "btn btn-warning btn-sm" %>
+                  <%= link_to "Delete", user, method: :delete,   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} , class: "btn btn-danger btn-sm" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
     </div>
   </div>
 
@@ -38,4 +52,5 @@
       <%= link_to "New user", new_user_path, class: "btn btn-primary" %>
     </div>
   </div>
+
 </div>

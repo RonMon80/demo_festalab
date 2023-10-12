@@ -3,8 +3,17 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
+    if params[:search].present?
+      @users = User.where("name LIKE ? OR email LIKE ? OR phone LIKE ? OR cpf LIKE ?",
+                          "%#{params[:search]}%",
+                          "%#{params[:search]}%",
+                          "%#{params[:search]}%",
+                          "%#{params[:search]}%")
+    else
+      @users = User.all
+    end
   end
+
 
   # GET /users/1
   def show
